@@ -21,24 +21,9 @@ Place - Suite 330, Boston, MA 02111-1307, USA.
 
 */
 
-import java.awt.*;
-import java.awt.image.*;
-import java.lang.*;
-import java.io.*;
-import java.applet.*;
-import java.net.*;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowListener;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentListener;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ItemEvent;
-import java.util.StringTokenizer;
-import javax.sound.sampled.*;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Image;
 /** This class is the master class for implementations 
   *  of the graphics class.  A graphics implementation will subclass from this class.
   *  It contains methods for calculating the frame rate. */
@@ -115,7 +100,7 @@ abstract class GraphicsChip {
 
 
 
- /** Create a new GraphicsChip connected to the speicfied CPU */ 
+ /** Create a new GraphicsChip connected to the specified CPU */ 
  public GraphicsChip(Component a, Dmgcpu d) {  
   dmgcpu = d;
   

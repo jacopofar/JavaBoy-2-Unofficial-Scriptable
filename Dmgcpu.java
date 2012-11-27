@@ -23,24 +23,7 @@ Place - Suite 330, Boston, MA 02111-1307, USA.
 
 */
 
-import java.awt.*;
-import java.awt.image.*;
-import java.lang.*;
-import java.io.*;
-import java.applet.*;
-import java.net.*;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowListener;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentListener;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ItemEvent;
-import java.util.StringTokenizer;
-import javax.sound.sampled.*;
+import java.awt.Component;
 
 /** This is the main controlling class for the emulation
  *  It contains the code to emulate the Z80-like processor
@@ -612,10 +595,10 @@ class Dmgcpu {
      }
 
      boolean speedThrottle = true;
-     if (!JavaBoy.runningAsApplet) {
+     
       GameBoyScreen g = (GameBoyScreen) applet;
       speedThrottle = g.viewSpeedThrottle.getState();
-     }
+     
      if ((speedThrottle) && (graphicsChip.frameWaitTime >= 0)) {
 //      System.out.println("Waiting for " + graphicsChip.frameWaitTime + "ms.");
       try {
@@ -639,11 +622,9 @@ class Dmgcpu {
      ioHandler.registers[0x44] = 0;
      if (soundChip != null) soundChip.outputSound();
      graphicsChip.frameDone = false;
-	 if (JavaBoy.runningAsApplet) {
-      ((JavaBoy) (applet)).drawNextFrame();
-	 } else {
+	
       ((GameBoyScreen) (applet)).repaint();
-	 }
+	 
      try {
       while (!graphicsChip.frameDone) {
        java.lang.Thread.sleep(1);
@@ -1382,7 +1363,7 @@ class Dmgcpu {
         }
         break;
     case 0x52 :               // Debug breakpoint (LD D, D)
-	    // As this insturction is used in games (why?) only break here if the breakpoint is on in the debugger
+	    // As this instruction is used in games (why?) only break here if the breakpoint is on in the debugger
 		if (breakpointEnable) {
          terminate = true;
          System.out.println("- Breakpoint reached");

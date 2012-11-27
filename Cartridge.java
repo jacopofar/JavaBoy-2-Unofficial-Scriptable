@@ -23,24 +23,10 @@ Place - Suite 330, Boston, MA 02111-1307, USA.
 
 
 import java.awt.*;
-import java.awt.image.*;
-import java.lang.*;
 import java.io.*;
-import java.applet.*;
 import java.net.*;
 import java.util.Calendar;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowListener;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentListener;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ItemEvent;
-import java.util.StringTokenizer;
-import javax.sound.sampled.*;
+
 
 /** This class represents the game cartridge and contains methods to load the ROM and battery RAM
  *  (if necessary) from disk or over the web, and handles emulation of ROM mappers and RAM banking.
@@ -156,12 +142,6 @@ class Cartridge {
   this.romFileName = romFileName;
   InputStream is = null;
   try {
-/*   if (JavaBoy.runningAsApplet) {
-    Applet myApplet = (Applet) a;
-    is = new URL(myApplet.getDocumentBase(), romFileName).openStream();
-   } else {
-    is = new FileInputStream(new File(romFileName));
-   }*/
    is = openRom(romFileName, a);
    byte[] firstBank = new byte[0x04000];
 
@@ -196,9 +176,8 @@ class Cartridge {
 	System.err.println("Invalid Checksum\n");
    }
 
-   if (!JavaBoy.runningAsApplet) {
     loadBatteryRam();
-   }
+   
 
    // Set up the real time clock
     Calendar rightNow = Calendar.getInstance();
@@ -302,11 +281,9 @@ class Cartridge {
      if (bFormat == bNotCompressed) {
 	   try {
 	    romIntFileName = stripExtention(romFileName);
-	    if (JavaBoy.runningAsApplet) {
-		 return new java.net.URL(((Applet) (a)).getDocumentBase(), romFileName).openStream();
-		} else {
+	    
   	     return new FileInputStream(new File(romFileName));
-		}
+		
 	   } catch (Exception e) {
 	    System.out.println("Cant open file");
         return null;
@@ -321,11 +298,8 @@ class Cartridge {
 
 	   try {
 		
-		   if (JavaBoy.runningAsApplet) {
-			zip = new java.util.zip.ZipInputStream(new java.net.URL(((Applet) (a)).getDocumentBase(), romFileName).openStream());
-		   } else {
+		  
 			zip = new java.util.zip.ZipInputStream(new java.io.FileInputStream(romFileName));
-		   }
 
 
 		   // Check for valid files (GB or GBC ending in filename)
@@ -343,15 +317,12 @@ class Cartridge {
 		   }
 		   // Show an error if no ROM file was found in the ZIP
 		   if (!bFoundGBROM) {
-			 if (JavaBoy.runningAsApplet) {
-				 //new Dialog((Frame) a, "Error", "No GBx ROM found!", "");
-			 }
 			 System.err.println("No GBx ROM found!");
 			 throw new java.io.IOException("ERROR");
 		   }
-		   if (!JavaBoy.runningAsApplet) {
+		   
 			 System.out.println("Found " + romName);
-		   }
+		   
 		   return zip;
 	  } catch (Exception e) {
 		 System.out.println(e);
@@ -363,11 +334,9 @@ class Cartridge {
        System.out.println("Loading GZIP Compressed ROM");
        romIntFileName = stripExtention(romFileName);
 	   try {
- 	    if (JavaBoy.runningAsApplet) {
-    	    return new java.util.zip.GZIPInputStream(new java.net.URL(((Applet) (a)).getDocumentBase(), romFileName).openStream());
-	    } else {
+ 	   
 	        return new java.util.zip.GZIPInputStream(new java.io.FileInputStream(romFileName));
-	    }
+	    
 	   } catch (Exception e) {
         System.out.println("Can't open file");
 		return null;
@@ -481,7 +450,7 @@ class Cartridge {
  }
 
  /** Writes a byte to an address in CPU address space.  Identical to addressWrite() except that
-  *  writes to ROM do not cause a mapping change, but actually write to the ROM.  This is usefull
+  *  writes to ROM do not cause a mapping change, but actually write to the ROM.  This is useful
   *  for patching parts of code.  Only used by the debugger.
   */
  public void debuggerAddressWrite(int addr, int data) {
@@ -697,7 +666,6 @@ class Cartridge {
  }
 
  public int getBatteryRamSize() {
-  int numRamBanks;
   if (rom[0x149] == 0x06) {
    return 512;
   } else {
@@ -762,9 +730,8 @@ class Cartridge {
 
  /** Peforms saving of the battery RAM before the object is discarded */
  public void dispose() {
-  if (!JavaBoy.runningAsApplet) {
+ 
    saveBatteryRam();
-  }
   disposed = true;
  }
 

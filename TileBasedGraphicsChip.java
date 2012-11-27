@@ -21,24 +21,13 @@ Place - Suite 330, Boston, MA 02111-1307, USA.
 
 */
 
-import java.awt.*;
-import java.awt.image.*;
-import java.lang.*;
-import java.io.*;
-import java.applet.*;
-import java.net.*;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowListener;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentListener;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ItemEvent;
-import java.util.StringTokenizer;
-import javax.sound.sampled.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.DirectColorModel;
+import java.awt.image.MemoryImageSource;
+
 
 
 
@@ -327,7 +316,6 @@ class TileBasedGraphicsChip extends GraphicsChip {
  public boolean draw(Graphics g, int startX, int startY, Component a) {
   int tileNum;
 
-
   calculateFPS();
   if ((framesDrawn % frameSkip) != 0) {
    frameDone = true;
@@ -487,7 +475,6 @@ class TileBasedGraphicsChip extends GraphicsChip {
    tiles[r].validate(videoRam, r << 4, TILE_BKG);
    tiles[r].draw(back, 8 * (r % 20), 8 * (r / 20), TILE_BKG);
   }*/
-
 
   g.drawImage(backBuffer, startX, startY, null);
 

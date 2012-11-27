@@ -21,24 +21,14 @@ Place - Suite 330, Boston, MA 02111-1307, USA.
 
 */
 
-import java.awt.*;
-import java.awt.image.*;
-import java.lang.*;
-import java.io.*;
-import java.applet.*;
-import java.net.*;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowListener;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentListener;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ItemEvent;
-import java.util.StringTokenizer;
-import javax.sound.sampled.*;
+import java.awt.Frame;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 /** This class implements the serial communcation (Game Link) on the Gameboy using a socket connection
  *  to a remote host.  A server must bind to a port, and a client must connect to the port, then
