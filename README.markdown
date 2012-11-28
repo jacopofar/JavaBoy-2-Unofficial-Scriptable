@@ -1,4 +1,6 @@
-Unofficial port of the javaboy gameboy emulator.
-Includes better debugging features and a memory search feature.
-Also, it aims to fix some of the compatability issues with the
-original Javaboy.
+A modified version of a JavaBoy unofficial port.
+
+I want to add scripting capabilities and some kind of "autopilot" function.
+
+TODO:
+*write TODOs
