@@ -981,9 +981,6 @@ class WebSaveRAM implements Runnable {
    if (str.startsWith("ERROR")) {
 	throw new Exception(str);
    }
- 
-
-   int pos = 0;
    try {
     for (int r = 0; r < cart.getBatteryRamSize(); r++) {
      String sub = str.substring(r * 2, r * 2 + 2);

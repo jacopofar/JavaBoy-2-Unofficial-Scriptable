@@ -102,8 +102,6 @@ class TileBasedGraphicsChip extends GraphicsChip {
 
  /** Draw sprites into the back buffer which have the given priority */
  public void drawSprites(Graphics back, int priority) {
-  
-  int tileBankStart = 0;
   int vidRamAddress = 0;
 
   // Draw sprites
@@ -125,7 +123,6 @@ class TileBasedGraphicsChip extends GraphicsChip {
     if ((attributes & 0x08) != 0) {
      vidRamAddress = 0x2000 + (tileNum << 4);
      tileNum += 384;
-     tileBankStart = 0x2000;
     } else {
      vidRamAddress = tileNum << 4;
     }
@@ -593,7 +590,6 @@ class TileBasedGraphicsChip extends GraphicsChip {
      int pixelColorUpper = (videoRam[offset + (py * 2) + 1] & (0x80 >> px)) >> (7 - px);
 
      int entryNumber = (pixelColorUpper * 2) + pixelColorLower;
-     int pixelColor = pal.getEntry(entryNumber);
 
 /*     switch (pixelColor) {
       case 0 : rgbValue = 0xFFFFFFFF;

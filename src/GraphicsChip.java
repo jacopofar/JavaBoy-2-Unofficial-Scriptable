@@ -115,7 +115,9 @@ abstract class GraphicsChip {
 
   backBuffer = a.createImage(160 * mag, 144 * mag);
   applet = a;
- } /** Set the magnification for the screen */ 
+ }
+ 
+ /** Set the magnification for the screen */ 
  
  public void setMagnify(int m) {
   mag = m;
