@@ -34,7 +34,7 @@ public class GameHandle{
 	public void releaseKey(String key){
 		g.sendButtonRelease(key);
 	}
-	
+
 	public void addButtonListener(GameBoyListener l){
 		listeners.add(l);
 	}
@@ -42,7 +42,7 @@ public class GameHandle{
 	public void removeButtonListener(GameBoyListener l){
 		listeners.remove(l);
 	}
-	
+
 	/**
 	 * Remove all listeners and unbind the handle from the JavaBoy
 	 * */
@@ -50,4 +50,20 @@ public class GameHandle{
 		listeners.clear();
 		g.removeHandle(this);
 	}
+	
+	//TODO define the behavior when a listener returns false, wrt the order of listeners
+	public boolean onPressure(String button) {
+		for(GameBoyListener l:listeners){
+			if(!l.onButtonPressed(button))return false;
+		}
+		return true;
+	}
+	public boolean onRelease(String button) {
+		for(GameBoyListener l:listeners){
+			if(!l.onButtonReleased(button))return false;
+		}
+		return true;
+	}
+
+
 }

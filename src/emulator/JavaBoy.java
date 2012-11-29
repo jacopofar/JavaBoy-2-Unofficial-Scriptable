@@ -111,7 +111,7 @@ import java.util.StringTokenizer;
 
 import javax.imageio.ImageIO;
 
-import automatisms.GameBoyListener;
+
 import automatisms.GameHandle;
 
 
@@ -378,6 +378,7 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 			break;
 		}
 		case KeyEvent.VK_F10    : {
+			//TODO placeholder action
 			System.out.println("Taking screenshot");
 			try {
 				ImageIO.write(mainWindow.graphicsChip.getScreenshot(), "png", new File("dsfsdf.png"));
@@ -388,11 +389,14 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 		}
 		}
 	}
+	
 	/**
 	 * simulate the pressure of a button, from GUI or from some script
 	 * */
 	public void sendButtonPress(String button){
-		//TODO trigger game handlers events 
+		for(GameHandle g:handles){
+			if(!g.onPressure(button)) return;
+		}
 		if(button.equals("up")){
 			dmgcpu.ioHandler.padUp = true;
 			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
@@ -431,7 +435,9 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 	 * simulate the release of a button, from GUI or from some script
 	 * */
 	public void sendButtonRelease(String button){
-		//TODO trigger game handlers events 
+		for(GameHandle g:handles){
+			if(!g.onRelease(button)) return;
+		}
 		if(button.equals("up")){
 			dmgcpu.ioHandler.padUp = false;
 			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
