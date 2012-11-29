@@ -116,8 +116,8 @@ import java.util.StringTokenizer;
 
 
 
-public class JavaBoy implements Runnable, KeyListener, WindowListener, MouseListener, ActionListener, ItemListener {
-	
+public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionListener, ItemListener {
+
 	private static final String hexChars = "0123456789ABCDEF";
 
 	/** The version string is displayed on the title bar of the application */
@@ -241,7 +241,6 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, MouseList
 	static public String hexByte(int b) {
 		String s = new Character(hexChars.charAt(b >> 4)).toString();
 		s = s + new Character(hexChars.charAt(b & 0x0F)).toString();
-
 		return s;
 	}
 
@@ -250,17 +249,6 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, MouseList
 		return new String(hexByte((w & 0x0000FF00) >>  8) + hexByte(w & 0x000000FF));
 	}
 
-
-	/** Checks for mouse clicks when running as an applet */
-	public void mouseClicked(MouseEvent e) {
-		long doubleClickTime = (System.currentTimeMillis() - lastClickTime);
-
-		if (doubleClickTime <= 250) {
-			popupMenu.show(e.getComponent(), e.getX(), e.getY());
-		}
-		//  System.out.println("Click! " + );
-		lastClickTime = System.currentTimeMillis();
-	}
 
 	public void mouseEntered(MouseEvent e) {
 
@@ -305,18 +293,10 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, MouseList
 		} else if (e.getActionCommand().equals("Reset")) {
 			dmgcpu.reset();
 		} else if (e.getActionCommand().equals("Save")) {
-
-
 			//   f.hide();
 
-
-
 		} else if (e.getActionCommand().equals("Load")) {
-
 			System.out.println("Resetting...");
-
-
-
 		}
 	}
 
@@ -409,7 +389,6 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, MouseList
 
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
-
 		if (key == keyCodes[0]) {
 			dmgcpu.ioHandler.padUp = false;
 			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
@@ -632,8 +611,8 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, MouseList
 		InputStream is = null;
 		BufferedReader in = null;
 		try {
-				is = new FileInputStream(new File(fn));
-			
+			is = new FileInputStream(new File(fn));
+
 			in = new BufferedReader(new InputStreamReader(is));
 
 			String line;
@@ -664,11 +643,11 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, MouseList
 
 	public void setupKeyboard() {
 		if (!keyListener) {
-			
-				System.out.println("Starting key controls");
-				mainWindow.addKeyListener(this);
-				mainWindow.requestFocus();
-			
+
+			System.out.println("Starting key controls");
+			mainWindow.addKeyListener(this);
+			mainWindow.requestFocus();
+
 			keyListener = true;
 		}
 	}
@@ -988,54 +967,54 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, MouseList
 		p.start();
 	}
 
-//	public void stasrt() {
-//		Thread p = new Thread(this);
-//
-//		runningAsApplet = true;
-//		setupKeyboard();
-//		System.out.println("JavaBoy (tm) Version " + versionString + " (c) 2005 Neil Millstone (applet)");
-//
-//
-//		cartridge = new Cartridge(getParameter("ROMIMAGE"), this);
-//		dmgcpu = new Dmgcpu(cartridge, null, this);
-//		dmgcpu.graphicsChip.setMagnify(getSize().width / 160);
-//		this.requestFocus();
-//		p.start();
-//
-//		saveToWebEnable = getParameter("SAVERAMURL") != null;
-//
-//		popupMenu = new java.awt.PopupMenu();
-//		popupMenu.add("JavaBoy " + versionString);
-//		popupMenu.add("-");
-//		popupMenu.add("Define Controls");
-//		popupMenu.add(soundCheck = new java.awt.CheckboxMenuItem("Sound"));
-//		popupMenu.add("-");
-//		popupMenu.add("Reset");
-//
-//		if (saveToWebEnable) {
-//			popupMenu.add("Save");
-//			popupMenu.add("Load");
-//		}
-//
-//		popupMenu.add("-");
-//		popupMenu.add("Size: 1x");
-//		popupMenu.add("Size: 2x");
-//		popupMenu.add("Size: 3x");
-//		popupMenu.add("Size: 4x");
-//		popupMenu.add("-");
-//		popupMenu.add("FrameSkip: 0");
-//		popupMenu.add("FrameSkip: 1");
-//		popupMenu.add("FrameSkip: 2");
-//		popupMenu.add("FrameSkip: 3");
-//		popupMenu.add("-");
-//		popupMenu.add("JavaBoy Website");
-//		popupMenu.addActionListener(this);
-//
-//		soundCheck.addItemListener(this);
-//
-//		cartridge.outputCartInfo();
-//
-//	}
+	//	public void stasrt() {
+	//		Thread p = new Thread(this);
+	//
+	//		runningAsApplet = true;
+	//		setupKeyboard();
+	//		System.out.println("JavaBoy (tm) Version " + versionString + " (c) 2005 Neil Millstone (applet)");
+	//
+	//
+	//		cartridge = new Cartridge(getParameter("ROMIMAGE"), this);
+	//		dmgcpu = new Dmgcpu(cartridge, null, this);
+	//		dmgcpu.graphicsChip.setMagnify(getSize().width / 160);
+	//		this.requestFocus();
+	//		p.start();
+	//
+	//		saveToWebEnable = getParameter("SAVERAMURL") != null;
+	//
+	//		popupMenu = new java.awt.PopupMenu();
+	//		popupMenu.add("JavaBoy " + versionString);
+	//		popupMenu.add("-");
+	//		popupMenu.add("Define Controls");
+	//		popupMenu.add(soundCheck = new java.awt.CheckboxMenuItem("Sound"));
+	//		popupMenu.add("-");
+	//		popupMenu.add("Reset");
+	//
+	//		if (saveToWebEnable) {
+	//			popupMenu.add("Save");
+	//			popupMenu.add("Load");
+	//		}
+	//
+	//		popupMenu.add("-");
+	//		popupMenu.add("Size: 1x");
+	//		popupMenu.add("Size: 2x");
+	//		popupMenu.add("Size: 3x");
+	//		popupMenu.add("Size: 4x");
+	//		popupMenu.add("-");
+	//		popupMenu.add("FrameSkip: 0");
+	//		popupMenu.add("FrameSkip: 1");
+	//		popupMenu.add("FrameSkip: 2");
+	//		popupMenu.add("FrameSkip: 3");
+	//		popupMenu.add("-");
+	//		popupMenu.add("JavaBoy Website");
+	//		popupMenu.addActionListener(this);
+	//
+	//		soundCheck.addItemListener(this);
+	//
+	//		cartridge.outputCartInfo();
+	//
+	//	}
 
 
 	public void run() {
@@ -1059,7 +1038,7 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, MouseList
 		if (dmgcpu != null) dmgcpu.dispose();
 	}
 
-	
+
 
 	public void stop() {
 		System.out.println("Applet stopped");
