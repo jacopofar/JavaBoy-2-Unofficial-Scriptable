@@ -1,3 +1,4 @@
+package emulator;
 /*
 
 JavaBoy
@@ -95,18 +96,23 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.imageio.ImageIO;
+
+import automatisms.GameBoyListener;
+import automatisms.GameHandle;
 
 
 
@@ -213,6 +219,8 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 
 	long lastClickTime = 0;
 
+	/** A list of GameHandlers binded to this JavaBoy instance, used to notify button pressures and releases*/
+	private ArrayList<GameHandle> handles=new ArrayList<GameHandle>();
 
 
 	/** Outputs a line of debugging information */
@@ -374,7 +382,6 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 			try {
 				ImageIO.write(mainWindow.graphicsChip.getScreenshot(), "png", new File("dsfsdf.png"));
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			break;
@@ -385,6 +392,7 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 	 * simulate the pressure of a button, from GUI or from some script
 	 * */
 	public void sendButtonPress(String button){
+		//TODO trigger game handlers events 
 		if(button.equals("up")){
 			dmgcpu.ioHandler.padUp = true;
 			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
@@ -423,6 +431,7 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 	 * simulate the release of a button, from GUI or from some script
 	 * */
 	public void sendButtonRelease(String button){
+		//TODO trigger game handlers events 
 		if(button.equals("up")){
 			dmgcpu.ioHandler.padUp = false;
 			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
@@ -1057,6 +1066,22 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 		System.out.println("Applet stopped");
 		appletRunning = false;
 		if (dmgcpu != null) dmgcpu.terminate = true;
+	}
+
+	public BufferedImage getScreenShot() {
+		return mainWindow.graphicsChip.getScreenshot();
+	}
+/**
+ * Add a GameHandle, which will be notified of some game events
+ * */
+	public void addHandle(GameHandle gameHandle) {
+		this.handles.add(gameHandle);
+	}
+	/**
+	 * remove a GameHandle, which will no more be notified about game events
+	 * */
+	public void removeHandle(GameHandle gameHandle) {
+		this.handles.remove(gameHandle);
 	}
 
 }

@@ -1,3 +1,4 @@
+package emulator;
 // Mahjong Quest - Value set at 045E
 
 /*

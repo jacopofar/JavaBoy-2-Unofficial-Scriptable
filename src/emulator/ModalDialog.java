@@ -1,3 +1,4 @@
+package emulator;
 /*
 
 JavaBoy

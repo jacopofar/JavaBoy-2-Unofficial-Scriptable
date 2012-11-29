@@ -1,3 +1,4 @@
+package emulator;
 /*
 
 JavaBoy
@@ -23,13 +24,12 @@ Place - Suite 330, Boston, MA 02111-1307, USA.
 
 import java.awt.Component;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 /** This class is the master class for implementations 
   *  of the graphics class.  A graphics implementation will subclass from this class.
   *  It contains methods for calculating the frame rate. */
   
-abstract class GraphicsChip { 
+abstract class GraphicsChip {
  /** Tile uses the background palette */ 
  static final int TILE_BKG = 0;
 
