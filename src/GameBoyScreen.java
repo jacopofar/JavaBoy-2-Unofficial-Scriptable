@@ -734,6 +734,8 @@ ComponentListener, ItemListener  {
 	public void paint(Graphics g) {
 		if (graphicsChip != null) {
 			Dimension d = getSize();
+			//the coordinates of the top left corner of the game screen inside the window
+			//it nicely center the image, setting 0,0 would not put a margin
 			int x = (d.width / 2) - (graphicsChip.width / 2);
 			int y = (d.height / 2) - (graphicsChip.height / 2);
 			boolean b = graphicsChip.draw(g, x, y + 20, this);

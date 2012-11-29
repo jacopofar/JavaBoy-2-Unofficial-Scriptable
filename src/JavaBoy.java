@@ -93,7 +93,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.BufferedReader;
@@ -300,6 +299,8 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 		}
 	}
 
+
+
 	public void itemStateChanged(ItemEvent e) {
 		setSoundEnable(soundCheck.getState());
 	}
@@ -332,45 +333,21 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 		int key = e.getKeyCode();
 
 		if (key == keyCodes[0]) {
-			//   if (!dmgcpu.ioHandler.padUp) {
-			dmgcpu.ioHandler.padUp = true;
-			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
-			//   }
+			sendButtonPress("up");
 		} else if (key == keyCodes[1]) {
-			//   if (!dmgcpu.ioHandler.padDown) {
-			dmgcpu.ioHandler.padDown = true;
-			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
-			//   }
+			sendButtonPress("down");
 		} else if (key == keyCodes[2]) {
-			//   if (!dmgcpu.ioHandler.padLeft) {
-			dmgcpu.ioHandler.padLeft = true;
-			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
-			//   }
+			sendButtonPress("left");
 		} else if (key == keyCodes[3]) {
-			//   if (!dmgcpu.ioHandler.padRight) {
-			dmgcpu.ioHandler.padRight = true;
-			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
-			//   }
+			sendButtonPress("right");
 		} else if (key == keyCodes[4]) {
-			//   if (!dmgcpu.ioHandler.padA) {
-			dmgcpu.ioHandler.padA = true;
-			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
-			//   }
+			sendButtonPress("A");
 		} else if (key == keyCodes[5]) {
-			//   if (!dmgcpu.ioHandler.padB) {
-			dmgcpu.ioHandler.padB = true;
-			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
-			//   }
+			sendButtonPress("B");
 		} else if (key == keyCodes[6]) {
-			//   if (!dmgcpu.ioHandler.padStart) {
-			dmgcpu.ioHandler.padStart = true;
-			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
-			//   }
+			sendButtonPress("start");
 		} else if (key == keyCodes[7]) {
-			//   if (!dmgcpu.ioHandler.padSelect) {
-			dmgcpu.ioHandler.padSelect = true;
-			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
-			//   }
+			sendButtonPress("select");
 		}
 
 		switch (key) {
@@ -386,33 +363,101 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 		break;
 		}
 	}
+	/**
+	 * simulate the pressure of a button, from GUI or from some script
+	 * */
+	public void sendButtonPress(String button){
+		if(button.equals("up")){
+			dmgcpu.ioHandler.padUp = true;
+			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+		}
+		else if(button.equals("down")){
+			dmgcpu.ioHandler.padDown = true;
+			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+		}
+		else if(button.equals("left")){
+			dmgcpu.ioHandler.padLeft = true;
+			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+		}
+		else if(button.equals("right")){
+			dmgcpu.ioHandler.padRight = true;
+			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+		}
+		else if(button.equals("A")){
+			dmgcpu.ioHandler.padA = true;
+			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+		}
+		else if(button.equals("B")){
+			dmgcpu.ioHandler.padB = true;
+			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+		}
+		else if(button.equals("start")){
+			dmgcpu.ioHandler.padStart = true;
+			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+		}
+		else if(button.equals("select")){
+			dmgcpu.ioHandler.padSelect = true;
+			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+		}
+	}
 
+	/**
+	 * simulate the release of a button, from GUI or from some script
+	 * */
+	public void sendButtonRelease(String button){
+		if(button.equals("up")){
+			dmgcpu.ioHandler.padUp = false;
+			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+		}
+		else if(button.equals("down")){
+			dmgcpu.ioHandler.padDown = false;
+			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+		}
+		else if(button.equals("left")){
+			dmgcpu.ioHandler.padLeft = false;
+			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+		}
+		else if(button.equals("right")){
+			dmgcpu.ioHandler.padRight = false;
+			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+		}
+		else if(button.equals("A")){
+			dmgcpu.ioHandler.padA = false;
+			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+		}
+		else if(button.equals("B")){
+			dmgcpu.ioHandler.padB = false;
+			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+		}
+		else if(button.equals("start")){
+			dmgcpu.ioHandler.padStart = false;
+			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+		}
+		else if(button.equals("select")){
+			dmgcpu.ioHandler.padSelect = false;
+			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+		}
+	}
+	
+	
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		if (key == keyCodes[0]) {
-			dmgcpu.ioHandler.padUp = false;
-			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+			sendButtonRelease("up");
 		} else if (key == keyCodes[1]) {
-			dmgcpu.ioHandler.padDown = false;
-			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+			sendButtonRelease("down");
 		} else if (key == keyCodes[2]) {
-			dmgcpu.ioHandler.padLeft = false;
-			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+			sendButtonRelease("left");
 		} else if (key == keyCodes[3]) {
-			dmgcpu.ioHandler.padRight = false;
-			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+			sendButtonRelease("right");
 		} else if (key == keyCodes[4]) {
-			dmgcpu.ioHandler.padA = false;
-			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+			sendButtonRelease("A");
 		} else if (key == keyCodes[5]) {
-			dmgcpu.ioHandler.padB = false;
-			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+			sendButtonRelease("B");
 		} else if (key == keyCodes[6]) {
-			dmgcpu.ioHandler.padStart = false;
-			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+			sendButtonRelease("start");
 		} else if (key == keyCodes[7]) {
-			dmgcpu.ioHandler.padSelect = false;
-			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
+			sendButtonRelease("select");
 		}
 	}
 
