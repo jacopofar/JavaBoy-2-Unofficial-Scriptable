@@ -24,6 +24,7 @@ Place - Suite 330, Boston, MA 02111-1307, USA.
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 /** This class is the master class for implementations 
   *  of the graphics class.  A graphics implementation will subclass from this class.
   *  It contains methods for calculating the frame rate. */
@@ -64,7 +65,7 @@ abstract class GraphicsChip {
  boolean winEnabled = true;
 
  /** The image containing the Gameboy screen */ 
- Image backBuffer; 
+ BufferedImage backBuffer; 
  
  /** The current frame skip value */
  int frameSkip = 2;
@@ -112,8 +113,8 @@ abstract class GraphicsChip {
    gbcBackground[r] = new GameboyPalette(0, 1, 2, 3);
    gbcSprite[r] = new GameboyPalette(0, 1, 2, 3);
   }
-
-  backBuffer = a.createImage(160 * mag, 144 * mag);
+backBuffer=new BufferedImage(160 * mag, 144 * mag,BufferedImage.TYPE_INT_RGB);
+//  backBuffer = a.createImage(160 * mag, 144 * mag);
   applet = a;
  }
  
@@ -124,7 +125,7 @@ abstract class GraphicsChip {
   width = m * 160;
   height = m * 144;
   if (backBuffer != null) backBuffer.flush();
-  backBuffer = applet.createImage(160 * mag, 144 * mag);
+  backBuffer = new BufferedImage(160 * mag, 144 * mag,BufferedImage.TYPE_INT_RGB);
  } 
  
  /** Clear up any allocated memory */ 
@@ -172,4 +173,8 @@ abstract class GraphicsChip {
  abstract public void notifyScanline(int line); 
  abstract public void invalidateAll();
  abstract public boolean isFrameReady();
+ /**
+  * returns an image representing the current screen content
+  * */
+ abstract public BufferedImage getScreenshot();
 }

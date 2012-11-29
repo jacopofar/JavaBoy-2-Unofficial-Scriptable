@@ -25,6 +25,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.awt.image.DirectColorModel;
 import java.awt.image.MemoryImageSource;
 
@@ -38,6 +39,8 @@ import java.awt.image.MemoryImageSource;
 class TileBasedGraphicsChip extends GraphicsChip {
 	/** Tile cache */
 	GameboyTile[] tiles = new GameboyTile[384 * 2];
+	//keep the last shown screen
+	BufferedImage lastScreen=new BufferedImage(160,144, BufferedImage.TYPE_INT_RGB);
 
 	// Hacks to allow some raster effects to work.  Or at least not to break as badly.
 	boolean savedWindowDataSelect = false;
@@ -103,7 +106,6 @@ class TileBasedGraphicsChip extends GraphicsChip {
 	/** Draw sprites into the back buffer which have the given priority */
 	public void drawSprites(Graphics back, int priority) {
 		int vidRamAddress = 0;
-
 		// Draw sprites
 		for (int i = 0; i < 40; i++) {
 			int spriteX = dmgcpu.addressRead(0xFE01 + (i * 4)) - 8;
@@ -312,7 +314,6 @@ class TileBasedGraphicsChip extends GraphicsChip {
 	/** Draw the current graphics frame into the given graphics context */
 	public boolean draw(Graphics g, int startX, int startY, Component a) {
 		int tileNum;
-
 		calculateFPS();
 		if ((framesDrawn % frameSkip) != 0) {
 			frameDone = true;
@@ -322,7 +323,7 @@ class TileBasedGraphicsChip extends GraphicsChip {
 			framesDrawn++;
 		}
 		Graphics back = backBuffer.getGraphics();
-
+		
 		/*  g.setColor(new Color(255,0,0));
   g.drawRect(5,5, 10, 10);*/
 		//  System.out.println("- Drawing");
@@ -474,7 +475,6 @@ class TileBasedGraphicsChip extends GraphicsChip {
   }*/
 
 		g.drawImage(backBuffer, startX, startY, null);
-
 		/*  if (mag == 1) {
    g.drawImage(backBuffer, startX, startY, null);
   } else {
@@ -635,7 +635,6 @@ class TileBasedGraphicsChip extends GraphicsChip {
 
 		/** Draw the tile with the specified attributes into the graphics context given */
 		public void draw(Graphics g, int x, int y, int attribs) {
-			//TODO capture here the screen to make it available to the script system
 			g.drawImage(image[attribs], x * magnify, y * magnify, null);
 		}
 
@@ -681,6 +680,12 @@ class TileBasedGraphicsChip extends GraphicsChip {
 			}
 		}
 
+	}
+
+
+	@Override
+	public BufferedImage getScreenshot() {
+		return backBuffer;
 	}
 
 }

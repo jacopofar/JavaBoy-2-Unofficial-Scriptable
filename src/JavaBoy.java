@@ -106,6 +106,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.imageio.ImageIO;
+
 
 
 /** This is the main controlling class which contains the main() method
@@ -351,16 +353,32 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 		}
 
 		switch (key) {
-		case KeyEvent.VK_F1    : if (dmgcpu.graphicsChip.frameSkip != 1)
-			dmgcpu.graphicsChip.frameSkip--;
-		break;
-		case KeyEvent.VK_F2    : if (dmgcpu.graphicsChip.frameSkip != 10)
-			dmgcpu.graphicsChip.frameSkip++;
-		break;
-		case KeyEvent.VK_F5    : dmgcpu.terminateProcess();
-		activateDebugger();
-		System.out.println("- Break into debugger");
-		break;
+		case KeyEvent.VK_F1    : {
+			if (dmgcpu.graphicsChip.frameSkip != 1)
+				dmgcpu.graphicsChip.frameSkip--;
+			break;
+		}
+		case KeyEvent.VK_F2    :{
+			if (dmgcpu.graphicsChip.frameSkip != 10)
+				dmgcpu.graphicsChip.frameSkip++;
+			break;
+		}
+		case KeyEvent.VK_F5    :{
+			dmgcpu.terminateProcess();
+			activateDebugger();
+			System.out.println("- Break into debugger");
+			break;
+		}
+		case KeyEvent.VK_F10    : {
+			System.out.println("Taking screenshot");
+			try {
+				ImageIO.write(mainWindow.graphicsChip.getScreenshot(), "png", new File("dsfsdf.png"));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			break;
+		}
 		}
 	}
 	/**
@@ -438,8 +456,8 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 			dmgcpu.triggerInterruptIfEnabled(dmgcpu.INT_P10);
 		}
 	}
-	
-	
+
+
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		if (key == keyCodes[0]) {
@@ -1011,56 +1029,6 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 		Thread p = new Thread(javaBoy);
 		p.start();
 	}
-
-	//	public void stasrt() {
-	//		Thread p = new Thread(this);
-	//
-	//		runningAsApplet = true;
-	//		setupKeyboard();
-	//		System.out.println("JavaBoy (tm) Version " + versionString + " (c) 2005 Neil Millstone (applet)");
-	//
-	//
-	//		cartridge = new Cartridge(getParameter("ROMIMAGE"), this);
-	//		dmgcpu = new Dmgcpu(cartridge, null, this);
-	//		dmgcpu.graphicsChip.setMagnify(getSize().width / 160);
-	//		this.requestFocus();
-	//		p.start();
-	//
-	//		saveToWebEnable = getParameter("SAVERAMURL") != null;
-	//
-	//		popupMenu = new java.awt.PopupMenu();
-	//		popupMenu.add("JavaBoy " + versionString);
-	//		popupMenu.add("-");
-	//		popupMenu.add("Define Controls");
-	//		popupMenu.add(soundCheck = new java.awt.CheckboxMenuItem("Sound"));
-	//		popupMenu.add("-");
-	//		popupMenu.add("Reset");
-	//
-	//		if (saveToWebEnable) {
-	//			popupMenu.add("Save");
-	//			popupMenu.add("Load");
-	//		}
-	//
-	//		popupMenu.add("-");
-	//		popupMenu.add("Size: 1x");
-	//		popupMenu.add("Size: 2x");
-	//		popupMenu.add("Size: 3x");
-	//		popupMenu.add("Size: 4x");
-	//		popupMenu.add("-");
-	//		popupMenu.add("FrameSkip: 0");
-	//		popupMenu.add("FrameSkip: 1");
-	//		popupMenu.add("FrameSkip: 2");
-	//		popupMenu.add("FrameSkip: 3");
-	//		popupMenu.add("-");
-	//		popupMenu.add("JavaBoy Website");
-	//		popupMenu.addActionListener(this);
-	//
-	//		soundCheck.addItemListener(this);
-	//
-	//		cartridge.outputCartInfo();
-	//
-	//	}
-
 
 	public void run() {
 		do {
