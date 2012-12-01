@@ -101,6 +101,8 @@ abstract class GraphicsChip {
 	int tileStart = 0;
 	int vidRamStart = 0;
 
+	BufferedImage lastScreen=new BufferedImage(160,144,BufferedImage.TYPE_INT_RGB);
+	
 
 
 	/** Create a new GraphicsChip connected to the speicfied CPU */ 
@@ -175,8 +177,6 @@ abstract class GraphicsChip {
 	abstract public boolean isFrameReady();
 
 	public BufferedImage getScreenshot() {
-		BufferedImage i=new BufferedImage(160,144,BufferedImage.TYPE_INT_RGB);
-		i.createGraphics().drawImage(backBuffer.getScaledInstance(160, 144, Image.SCALE_FAST), 0, 0, null);
-		return i;
+		return lastScreen;
 	}
 }

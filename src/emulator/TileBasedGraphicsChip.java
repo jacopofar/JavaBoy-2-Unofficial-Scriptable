@@ -27,6 +27,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.awt.image.DirectColorModel;
 import java.awt.image.MemoryImageSource;
 
@@ -328,6 +329,8 @@ class TileBasedGraphicsChip extends GraphicsChip {
   }
   Graphics back = backBuffer.getGraphics();
 
+  lastScreen.createGraphics().drawImage(backBuffer.getScaledInstance(160, 144, Image.SCALE_FAST), 0, 0, null);
+
 /*  g.setColor(new Color(255,0,0));
   g.drawRect(5,5, 10, 10);*/
 //  System.out.println("- Drawing");
@@ -459,6 +462,8 @@ class TileBasedGraphicsChip extends GraphicsChip {
        tiles[tileNum].validate(videoRam, tileDataAddress, attribs);
       }
       tiles[tileNum].draw(back, wx + x * 8, wy + y * 8, attribs);
+      tiles[tileNum].draw(lastScreen.createGraphics(), wx + x * 8, wy + y * 8, attribs);
+      
      }
 	}
    }
