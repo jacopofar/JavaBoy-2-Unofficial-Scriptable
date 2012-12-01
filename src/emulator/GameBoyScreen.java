@@ -327,7 +327,7 @@ ComponentListener, ItemListener  {
 
 		connectDialog.setSize(350, 125);
 		connectDialog.setResizable(false);
-		connectDialog.show();
+		connectDialog.setVisible(true);
 	}
 
 
@@ -460,7 +460,7 @@ ComponentListener, ItemListener  {
 			}
 
 			FileDialog fd = new FileDialog(this, "Open ROM");
-			fd.show();
+			fd.setVisible(true);
 
 			if (fd.getFile() != null) {
 				applet.cartridge = new Cartridge(fd.getDirectory() + fd.getFile(), this);
@@ -499,7 +499,7 @@ ComponentListener, ItemListener  {
 		} else if (command.equals("Execute script")) {
 			if (applet.dmgcpu != null) {
 				FileDialog fd = new FileDialog(this, "Execute debugger script");
-				fd.show();
+				fd.setVisible(true);
 				applet.queueDebuggerCommand("c " + fd.getDirectory() + fd.getFile());
 				applet.dmgcpu.terminate = true;
 			} else {
@@ -531,10 +531,10 @@ ComponentListener, ItemListener  {
 		} else if (command.equals("Connect to client")) {
 			makeConnectDialog();
 		} else if (command.equals("Connect cancel")) {
-			connectDialog.hide();
+			connectDialog.setVisible(false);
 			connectDialog = null;
 		} else if (command.equals("Connect ok")) {
-			connectDialog.hide();
+			connectDialog.setVisible(false);
 			connectDialog = null;
 			applet.gameLink = new TCPGameLink(this, hostAddress.getText());
 			if (applet.dmgcpu != null) {
@@ -739,7 +739,7 @@ ComponentListener, ItemListener  {
 			//it nicely center the image, setting 0,0 would not put a margin
 			int x = (d.width / 2) - (graphicsChip.width / 2);
 			int y = (d.height / 2) - (graphicsChip.height / 2);
-			boolean b = graphicsChip.draw(g, x, y + 20, this);
+			graphicsChip.draw(g, x, y + 20, this);
 			if (viewFrameCounter.getState()) {
 				g.setColor(new Color(255, 255, 255));
 				g.fillRect(0, d.height - 20, d.width, 20);

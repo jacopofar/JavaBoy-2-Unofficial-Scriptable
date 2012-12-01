@@ -25,6 +25,7 @@ public class EventRecorder extends GameBoyListener{
 	public boolean onButtonPressed(String key){
 		try {
 			ImageIO.write(gh.getScreenshot(), "PNG", new File(folder+File.separatorChar+new Date().getTime()+"_"+key+".png"));
+		System.out.println("Saved screenshot"+ folder+File.separatorChar+new Date().getTime()+"_"+key+".png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
