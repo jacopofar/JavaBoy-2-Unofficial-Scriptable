@@ -101,7 +101,7 @@ abstract class GraphicsChip {
 	int tileStart = 0;
 	int vidRamStart = 0;
 
-	BufferedImage lastScreen=new BufferedImage(160,144,BufferedImage.TYPE_INT_RGB);
+	
 	
 
 
@@ -176,7 +176,5 @@ abstract class GraphicsChip {
 	abstract public void invalidateAll();
 	abstract public boolean isFrameReady();
 
-	public BufferedImage getScreenshot() {
-		return lastScreen;
-	}
+	abstract public BufferedImage getScreenshot();
 }
