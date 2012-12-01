@@ -43,11 +43,12 @@ public class GameImitator extends GameBoyListener{
 				//find the most similar screenshot and use it to decide the action
 				BufferedImage s = gh.getScreenshot();
 				try {
-					String mostlikely=KNN.findMostSimilar("screenshots",s);
-					System.out.println("most similar screenshot: "+mostlikely+" which is key "+mostlikely.split("_")[1].split("\\.")[0]);
-					gh.pressKey(mostlikely.split("_")[1].split("\\.")[0]);
+					String mostlikely=KNN.findMostSimilar(folder,s);
+					String found=mostlikely.split("_")[1].split("\\.")[0];
+					System.out.println("most similar screenshot: "+mostlikely+" which is key "+found);
+					gh.pressKey(found);
 					Thread.sleep(100);
-					gh.releaseKey(mostlikely.split("_")[1].split("\\.")[0]);
+					gh.releaseKey(found);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
