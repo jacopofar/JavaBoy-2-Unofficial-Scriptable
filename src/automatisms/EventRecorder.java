@@ -36,6 +36,11 @@ public class EventRecorder extends GameBoyListener{
 		JavaBoy g=new JavaBoy("");
 		Thread p = new Thread(g);
 		p.start();
-		new EventRecorder(new GameHandle(g),"testfolder");
+		new EventRecorder(new GameHandle(g),"screenshots");
+	}
+
+	@Override
+	public void onGameStart() {
+		// do nothing
 	}
 }

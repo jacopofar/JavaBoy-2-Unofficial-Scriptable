@@ -65,5 +65,12 @@ public class GameHandle{
 		return true;
 	}
 
+	public void onGameStart() {
+		for(GameBoyListener l:listeners){
+			l.onGameStart();
+		}
+		
+	}
+
 
 }

@@ -394,6 +394,7 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 	 * simulate the pressure of a button, from GUI or from some script
 	 * */
 	public void sendButtonPress(String button){
+		System.out.println("send button "+button);
 		for(GameHandle g:handles){
 			if(!g.onPressure(button)) return;
 		}
@@ -931,6 +932,9 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 			case 'g' :
 				setupKeyboard();
 				cartridge.restoreMapping();
+				//Here the game actually starts
+				for(GameHandle h:handles)
+					h.onGameStart();
 				dmgcpu.execute(-1);
 				break;
 			case 'n' :

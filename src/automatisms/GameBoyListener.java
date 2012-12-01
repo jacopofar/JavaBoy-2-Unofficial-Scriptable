@@ -8,5 +8,6 @@ public abstract class GameBoyListener {
 	 * */
 	public boolean onButtonPressed(String key){return true;}
 	public boolean onButtonReleased(String key){return true;}
+	abstract public void onGameStart();
 
 }
