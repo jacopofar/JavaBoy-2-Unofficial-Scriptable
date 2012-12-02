@@ -220,7 +220,7 @@ Image i;
  }
 
  void shutDown() {
-  window.hide();
+  window.setVisible(false);
  }
 
 };
