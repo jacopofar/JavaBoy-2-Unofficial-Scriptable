@@ -378,8 +378,8 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 			System.out.println("- Break into debugger");
 			break;
 		}
-		case KeyEvent.VK_F10    : {
-			System.out.println("F10 pressed, taking screenshot");
+		case KeyEvent.VK_F11    : {
+			System.out.println("F11 pressed, taking screenshot");
 			try {
 				ImageIO.write(mainWindow.graphicsChip.getScreenshot(), "png", new File(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())+".png"));
 			} catch (IOException e1) {

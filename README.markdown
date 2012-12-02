@@ -8,7 +8,7 @@ Features
 -------
 * GB/GBC emulation from JavaBoy with usual features like zoom and frame skip
 * Debugging features
-* Screenshot (press F10)
+* Screenshot (press F11)
 * JavaScript automatisms
 * Integration of automatisms and normal game play, for example:
 * * The user can control the game while an automatism is working
