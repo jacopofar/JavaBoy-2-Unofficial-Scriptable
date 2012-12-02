@@ -12,8 +12,8 @@ public class KNN {
 	 * Return the most similar image found in a given folder
 	 * @throws IOException 
 	 * */
-	public static String findMostSimilar(String string, BufferedImage s) throws IOException {
-		File folder=new File(string);
+	public static String findMostSimilar(String folderPath, BufferedImage s) throws IOException {
+		File folder=new File(folderPath);
 		String best="";
 		double max=Double.NEGATIVE_INFINITY;
 		for(File f:folder.listFiles()){

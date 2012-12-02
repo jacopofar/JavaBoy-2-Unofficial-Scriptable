@@ -340,8 +340,8 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 	}
 
 	public void keyPressed(KeyEvent e) {
+		System.out.println("pressed physical key "+e.getKeyCode()+" ("+e.getKeyChar()+")");
 		int key = e.getKeyCode();
-
 		if (key == keyCodes[0]) {
 			sendButtonPress("up");
 		} else if (key == keyCodes[1]) {

@@ -37,7 +37,6 @@ public class GameImitator extends GameBoyListener{
 		System.out.println("Imitator activated!");
 		//start the timer
 		new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(new Runnable(){
-
 			@Override
 			public void run() {
 				//find the most similar screenshot and use it to decide the action
