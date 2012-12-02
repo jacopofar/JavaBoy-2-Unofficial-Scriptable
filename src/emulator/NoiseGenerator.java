@@ -169,8 +169,6 @@ class NoiseGenerator {
   *  output array.
   */
  public void play(byte[] b, int length, int offset) {
-  int val;
-
   if (totalLength != 0) {
    totalLength--;
 

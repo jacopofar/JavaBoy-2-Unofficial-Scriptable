@@ -139,23 +139,17 @@ class TCPGameLink extends GameLink implements Runnable {
     }
 
 
-    int data = 0, clock, initial, b1, b2, b3, b4, v = 0;
+    int data = 0, initial;
     while ((data != -1) && (!terminate)) {           /* This needs to terminate */
 
-     if (dmgcpu != null) {
-      v = dmgcpu.instrCount;
-     }
 
      initial = inStream.read();
 
-     b1 = inStream.read();
-     b2 = inStream.read();
-     b3 = inStream.read();
-     b4 = inStream.read();
+    inStream.read();
+    inStream.read();
+    inStream.read();
+    inStream.read();
 
-//    System.out.println(b1+" "+b2+" "+b3+" "+b4);
-
-    clock = b1 + (b2 << 8) + (b3 << 16) + (b4 << 24);
 
      data = inStream.read();
 //    System.out.println("Synched: " + clock + " : " + dmgcpu.instrCount);
