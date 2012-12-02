@@ -106,11 +106,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
+import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
 import javax.imageio.ImageIO;
-
 
 import automatisms.GameHandle;
 
@@ -549,11 +548,11 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 
 		System.out.println("Number of memory locations before reduce: " + memorySearchMap.size());
 
-		Iterator entries = memorySearchMap.entrySet().iterator();
+		Iterator<Entry<Integer,Short>> entries = memorySearchMap.entrySet().iterator();
 		while (entries.hasNext()) {
-			Map.Entry entry = (Map.Entry) entries.next();
-			int key = (Integer)entry.getKey();
-			short value = (Short)entry.getValue();
+			Entry<Integer, Short> entry = entries.next();
+			int key = entry.getKey();
+			short value = entry.getValue();
 
 			short currentValue =  is16BitSearch ?  (short)((dmgcpu.addressRead(key+1) << 8)+dmgcpu.addressRead(key)) : 
 				dmgcpu.addressRead(key);
@@ -600,10 +599,10 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 	public void displayMemorySearch(){
 		System.out.println("Number of memory locations found: " + memorySearchMap.size());
 
-		Iterator entries = memorySearchMap.entrySet().iterator();
+		Iterator<Entry<Integer,Short>> entries = memorySearchMap.entrySet().iterator();
 		while (entries.hasNext()) {
-			Map.Entry entry = (Map.Entry) entries.next();
-			int key = (Integer)entry.getKey();
+			Entry<Integer, Short> entry = entries.next();
+			int key = entry.getKey();
 			if(is16BitSearch)
 				System.out.println(JavaBoy.hexWord(key) + "    " + 
 						JavaBoy.hexWord((short)((dmgcpu.addressRead(key+1) << 8)+dmgcpu.addressRead(key))));
