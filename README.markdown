@@ -9,6 +9,7 @@ Features
 * GB/GBC emulation from JavaBoy with usual features like zoom and frame skip
 * Debugging features
 * Screenshot (press F10)
+* JavaScript automatisms
 * Integration of automatisms and normal game play, for example:
 * * The user can control the game while an automatism is working
 * * Automatisms can intercept button events, even the ones of other automatisms
@@ -20,7 +21,6 @@ Still to add
 * ML tools, mostly Bayes naïve classifiers and neural networks
 * Easy way to store and retrieve data like SQLite
 * Start automatisms from GUI
-* Scripting through Rhino
 * Console and messages to let automations communicate with user
 License
 -------
