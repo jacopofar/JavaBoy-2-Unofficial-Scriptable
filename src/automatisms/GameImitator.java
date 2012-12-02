@@ -2,12 +2,10 @@ package automatisms;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Timer;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import machinelearning.KNN;
-
 import emulator.JavaBoy;
 
 /**
@@ -16,7 +14,6 @@ import emulator.JavaBoy;
 public class GameImitator extends GameBoyListener{
 	GameHandle gh;
 	String folder;
-	Timer t;
 	public GameImitator(GameHandle gh,String folderName){
 		this.gh=gh;
 		folder=folderName;
