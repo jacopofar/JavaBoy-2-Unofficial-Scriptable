@@ -103,7 +103,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -339,7 +341,7 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 	}
 
 	public void keyPressed(KeyEvent e) {
-		System.out.println("pressed physical key "+e.getKeyCode()+" ("+e.getKeyChar()+")");
+		System.out.println("pressed physical key "+e.getKeyCode());
 		int key = e.getKeyCode();
 		if (key == keyCodes[0]) {
 			sendButtonPress("up");
@@ -377,10 +379,9 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 			break;
 		}
 		case KeyEvent.VK_F10    : {
-			//TODO placeholder action
-			System.out.println("Taking screenshot");
+			System.out.println("F10 pressed, taking screenshot");
 			try {
-				ImageIO.write(mainWindow.graphicsChip.getScreenshot(), "png", new File("dsfsdf.png"));
+				ImageIO.write(mainWindow.graphicsChip.getScreenshot(), "png", new File(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())+".png"));
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
