@@ -523,7 +523,6 @@ class TileBasedGraphicsChip extends GraphicsChip {
 						int pixelColorUpper = (videoRam[offset + (py * 2) + 1] & (0x80 >> px)) >> (7 - px);
 
 			int entryNumber = (pixelColorUpper * 2) + pixelColorLower;
-			int pixelColor = pal.getEntry(entryNumber);
 
 			/*     switch (pixelColor) {
       case 0 : rgbValue = 0xFFFFFFFF;

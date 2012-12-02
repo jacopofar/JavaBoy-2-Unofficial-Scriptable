@@ -49,6 +49,7 @@ import java.awt.event.ItemListener;
 
 class GameBoyScreen extends Frame implements ActionListener,
 ComponentListener, ItemListener  {
+	private static final long serialVersionUID = 1L;
 	GraphicsChip graphicsChip = null;
 	JavaBoy applet;
 

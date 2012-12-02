@@ -187,7 +187,6 @@ class TCPGameLink extends GameLink implements Runnable {
       dmgcpu.triggerInterrupt(dmgcpu.INT_SER);
      }
 
-
     }   
 
    } catch (IOException e) {

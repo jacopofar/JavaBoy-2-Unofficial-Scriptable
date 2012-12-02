@@ -54,7 +54,8 @@ class GameBoyPrinter extends GameLink {
  int[] imageData = new int[IMAGE_WIDTH * IMAGE_HEIGHT];
 
  class GameBoyPrinterWindow extends Frame {
-  Image i;
+	private static final long serialVersionUID = 1L;
+Image i;
   int scale = 2;
 
   GameBoyPrinterWindow(String title) {
@@ -81,7 +82,7 @@ class GameBoyPrinter extends GameLink {
  GameBoyPrinter() {
   window = new GameBoyPrinterWindow("Game Boy Printer");
 
-  window.show();
+  window.setVisible(true);
 
   bufferFillPos = 0;
   bufferEmptyPos = 0;
