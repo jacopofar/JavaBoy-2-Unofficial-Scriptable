@@ -893,7 +893,7 @@ class WebSaveRAM implements Runnable {
 
 		System.out.println("Params: (" + url + ") " + params);
 
-		url = new URL(url.getProtocol(), url.getHost(), url.getPort(), url.getFile() + "?user=" + URLEncoder.encode(username));
+		url = new URL(url.getProtocol(), url.getHost(), url.getPort(), url.getFile() + "?user=" + URLEncoder.encode(username,"UTF-8"));
 
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -915,7 +915,7 @@ class WebSaveRAM implements Runnable {
 		}
 		//   saveData = URLEncoder.encode("Hel\0lo");
 
-		String content = "romname=" + URLEncoder.encode(cart.getRomFilename()) + "&gamename=" + URLEncoder.encode(cart.getCartName()) + "&user=" + URLEncoder.encode(username) + "&datalength=" + (cart.getBatteryRamSize() * 2) + "&data0=" + saveData + params;
+		String content = "romname=" + URLEncoder.encode(cart.getRomFilename(),"UTF-8") + "&gamename=" + URLEncoder.encode(cart.getCartName(),"UTF-8") + "&user=" + URLEncoder.encode(username,"UTF-8") + "&datalength=" + (cart.getBatteryRamSize() * 2) + "&data0=" + saveData + params;
 
 		System.out.println(content);
 
@@ -924,8 +924,7 @@ class WebSaveRAM implements Runnable {
 		printout.close ();
 
 		conn.disconnect();
-
-		DataInputStream input = new DataInputStream (conn.getInputStream());
+		BufferedReader input=new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		String str;
 		while (null != ((str = input.readLine()))) {
 			System.out.println(str);
@@ -946,7 +945,7 @@ class WebSaveRAM implements Runnable {
 
 		System.out.println("Params: (" + url + ") " + params);
 
-		url = new URL(url.getProtocol(), url.getHost(), url.getPort(), url.getFile() + "?user=" + URLEncoder.encode(username) + params);
+		url = new URL(url.getProtocol(), url.getHost(), url.getPort(), url.getFile() + "?user=" + URLEncoder.encode(username,"UTF-8") + params);
 
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -960,7 +959,7 @@ class WebSaveRAM implements Runnable {
 		DataOutputStream printout = new DataOutputStream(conn.getOutputStream());
 
 
-		String content = "gamename=" + URLEncoder.encode(cart.getCartName()) + "&romname=" + URLEncoder.encode(cart.getRomFilename());
+		String content = "gamename=" + URLEncoder.encode(cart.getCartName(),"UTF-8") + "&romname=" + URLEncoder.encode(cart.getRomFilename(),"UTF-8");
 
 		//   System.out.println(content);
 
@@ -969,9 +968,9 @@ class WebSaveRAM implements Runnable {
 		printout.close ();
 
 		conn.disconnect();
-		DataInputStream input = new DataInputStream (conn.getInputStream());
-		String str;
-		str = input.readLine();
+		BufferedReader input=new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		String str=input.readLine();
+
 
 		// No save
 		if (str.equals("NOSAVERAM")) {
