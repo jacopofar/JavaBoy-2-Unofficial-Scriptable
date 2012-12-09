@@ -464,18 +464,7 @@ ComponentListener, ItemListener  {
 			fd.setVisible(true);
 
 			if (fd.getFile() != null) {
-				applet.cartridge = new Cartridge(fd.getDirectory() + fd.getFile(), this);
-				applet.dmgcpu = new Dmgcpu(applet.cartridge, applet.gameLink, this);
-				//	applet.gameBoyPrinter = new GameBoyPrinter();
-				if (applet.gameLink != null) applet.gameLink.setDmgcpu(applet.dmgcpu);
-				setGraphicsChip(applet.dmgcpu.graphicsChip);
-				setSoundFreq();
-				setBufferLength();
-				setMagnify();
-				setFrameSkip();
-				setChannelEnable();
-				applet.dmgcpu.allowGbcFeatures = fileGameboyColor.getState();
-				applet.dmgcpu.reset();
+				this.loadROM(fd.getDirectory()+fd.getFile());
 			}
 
 		} else if (command.equals("Frame counter")) {
@@ -484,8 +473,7 @@ ComponentListener, ItemListener  {
 			viewSpeedThrottle.setState(!viewSpeedThrottle.getState());
 		} else if (command.equals("Emulate")) {
 			if ((applet.cartridge != null) && (applet.cartridge.cartridgeReady)) {
-				applet.queueDebuggerCommand("g");
-				applet.dmgcpu.terminate = true;
+				this.emulate();
 			} else {
 				new ModalDialog(this, "Error", "You need to load a ROM before", "you select 'Emulate'.");    
 			}
@@ -748,6 +736,25 @@ ComponentListener, ItemListener  {
 				g.drawString(graphicsChip.getFPS() + " frames per second", 10, d.height - 7);
 			}
 		}
+	}
+	public void loadROM(String path){
+		applet.cartridge = new Cartridge(path, this);
+		applet.dmgcpu = new Dmgcpu(applet.cartridge, applet.gameLink, this);
+		//	applet.gameBoyPrinter = new GameBoyPrinter();
+		if (applet.gameLink != null) applet.gameLink.setDmgcpu(applet.dmgcpu);
+		setGraphicsChip(applet.dmgcpu.graphicsChip);
+		setSoundFreq();
+		setBufferLength();
+		setMagnify();
+		setFrameSkip();
+		setChannelEnable();
+		applet.dmgcpu.allowGbcFeatures = fileGameboyColor.getState();
+		applet.dmgcpu.reset();
+	}
+	
+	public void emulate(){
+		applet.queueDebuggerCommand("g");
+		applet.dmgcpu.terminate = true;
 	}
 }
 
