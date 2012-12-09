@@ -1099,7 +1099,6 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 	public void runGame(String path) {
 		mainWindow.loadROM(path);
 		mainWindow.emulate();
-
 	}
 
 }

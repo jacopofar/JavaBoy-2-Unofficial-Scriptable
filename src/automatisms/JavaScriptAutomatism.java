@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import machinelearning.NaiveBayes;
-
 import sun.org.mozilla.javascript.Context;
 import sun.org.mozilla.javascript.Function;
 import sun.org.mozilla.javascript.ScriptableObject;
@@ -31,7 +30,6 @@ public class JavaScriptAutomatism extends GameBoyListener{
 		this.scriptPath=scriptPath;
 		gh.addButtonListener(this);
 		code = JavaScriptAutomatism.loadCode(scriptPath);
-
 		context = Context.enter();
 
 		scope = context.initStandardObjects();
@@ -91,5 +89,14 @@ public class JavaScriptAutomatism extends GameBoyListener{
 	public NaiveBayes getNBC(int n,String[] classes){
 		return new NaiveBayes(n, classes);
 	}
+	
+	/**
+	 * Since JavaScript types are slighty different from Java ones, this method
+	 * allow us to peep a little bit
+	 * */
+	public void analyze(Object i){
+		System.out.println(i);
+	}
+	
 
 }
