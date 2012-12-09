@@ -60,13 +60,17 @@ public class JavaScriptAutomatism extends GameBoyListener{
 	}
 	
 	public boolean onButtonPressed(String key){
-		return functionOnPress.call(
-				context, scope, scope, new Object[] {gh,this,key}).equals(Boolean.TRUE);
+		//note: we check that it's NOT FALSE, so a script not returning a boolean is considered true
+		//in general, a script wants to return true
+		return (!functionOnPress.call(
+				context, scope, scope, new Object[] {gh,this,key}).equals(Boolean.FALSE));
 	}
 	
 	public boolean onButtonReleased(String key){
-		return functionOnRelease.call(
-				context, scope, scope, new Object[] {gh,this,key}).equals(Boolean.TRUE);
+		//note: we check that it's NOT FALSE, so a script not returning a boolean is considered true
+		//in general, a script wants to return true
+		return (!functionOnRelease.call(
+				context, scope, scope, new Object[] {gh,this,key}).equals(Boolean.FALSE));
 	}
 	
 	private static String loadCode(String path) throws IOException{
@@ -84,7 +88,7 @@ public class JavaScriptAutomatism extends GameBoyListener{
 		System.out.println(">"+text);
 	}
 	
-	public NaiveBayes getClassifier(int n,String[] classes){
+	public NaiveBayes getNBC(int n,String[] classes){
 		return new NaiveBayes(n, classes);
 	}
 

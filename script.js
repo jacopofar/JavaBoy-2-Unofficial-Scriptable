@@ -2,9 +2,7 @@
 var lastKey="NONE";
 function onGameStart(handler,automatism){
 	automatism.notify("script started, execution of onGameStart");
-	automatism.id([1,2,3,"e"]);
-	importPackage(machinelearning.NaiveBayes);
-	var recog=new NaiveBayes("w",2);
+	var recog=automatism.getNBC(3,["a","b","start"]);
 }
 
 function onPress(handler,automatism,key){
