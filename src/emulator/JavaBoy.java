@@ -389,7 +389,7 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 		}
 		}
 	}
-	
+
 	/**
 	 * simulate the pressure of a button, from GUI or from some script
 	 * */
@@ -1081,9 +1081,9 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 	public BufferedImage getScreenShot() {
 		return mainWindow.graphicsChip.getScreenshot();
 	}
-/**
- * Add a GameHandle, which will be notified of some game events
- * */
+	/**
+	 * Add a GameHandle, which will be notified of some game events
+	 * */
 	public void addHandle(GameHandle gameHandle) {
 		this.handles.add(gameHandle);
 	}
@@ -1092,6 +1092,14 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 	 * */
 	public void removeHandle(GameHandle gameHandle) {
 		this.handles.remove(gameHandle);
+	}
+	/**
+	 * Load and emulate a ROM
+	 * */
+	public void runGame(String path) {
+		mainWindow.loadROM(path);
+		mainWindow.emulate();
+
 	}
 
 }

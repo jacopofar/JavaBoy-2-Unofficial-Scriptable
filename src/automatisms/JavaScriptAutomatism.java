@@ -46,6 +46,7 @@ public class JavaScriptAutomatism extends GameBoyListener{
 		Thread p = new Thread(g);
 		p.start();
 		new JavaScriptAutomatism(new GameHandle(g),"script.js");
+		g.runGame("game.gb");
 	}
 
 
