@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import machinelearning.NaiveBayes;
+
 import sun.org.mozilla.javascript.Context;
 import sun.org.mozilla.javascript.Function;
 import sun.org.mozilla.javascript.ScriptableObject;
@@ -82,8 +84,8 @@ public class JavaScriptAutomatism extends GameBoyListener{
 		System.out.println(">"+text);
 	}
 	
-	public void id(Object i){
-		System.out.println("identified: "+i.getClass().getMethods());
+	public NaiveBayes getClassifier(int n,String[] classes){
+		return new NaiveBayes(n, classes);
 	}
 
 }

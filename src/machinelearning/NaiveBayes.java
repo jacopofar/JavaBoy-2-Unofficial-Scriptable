@@ -16,7 +16,7 @@ public class NaiveBayes {
 	 * Features inside the vector are identified by an integer index, classes through a String.
 	 * The classifier uses Laplace smoothing (that is, it adds 1 to each feature-case pair to contrast overfitting)
 	 * */
-	NaiveBayes(int featureNumber, String[] classes){
+	public NaiveBayes(int featureNumber, String[] classes){
 		this.classes=classes.clone();
 		this.counts=new int[featureNumber][classes.length];
 	}
