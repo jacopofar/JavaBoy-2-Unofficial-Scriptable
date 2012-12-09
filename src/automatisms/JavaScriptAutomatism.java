@@ -11,8 +11,8 @@ import sun.org.mozilla.javascript.Function;
 import sun.org.mozilla.javascript.ScriptableObject;
 import emulator.JavaBoy;
 /**
- * Run an external JavaScript code through Rhino.
- * NOTE: Mozilla Rhino in included in Java framework from JavaSE from version 6 (December 2006).
+ * Run an external JavaScript code through Mozilla Rhino.
+ * NOTE: Mozilla Rhino is included in Java framework from JavaSE from version 6 (December 2006).
  * If you use a Java framework without it, download it from http://www.mozilla.org/rhino/download.html
  * */
 public class JavaScriptAutomatism extends GameBoyListener{
@@ -80,4 +80,9 @@ public class JavaScriptAutomatism extends GameBoyListener{
 	public void notify(String text){
 		System.out.println(">"+text);
 	}
+	
+	public void id(Object i){
+		System.out.println("identified: "+i.getClass().getMethods());
+	}
+
 }
