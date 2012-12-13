@@ -12,10 +12,13 @@ function onPress(handler,automatism,key){
 	//let's take a screenshot and create a vector from it
 	var buf=handler.getScreenshot().getData().getDataBuffer();
 	var featureVector=new Array();
+	var blue=0;
 	for(var i=0;i<buf.getSize();i++){
 		var pixel=buf.getElem(i);
 		//pixel is a RGB value, let's just consider whether is over 128 or not (high values of red are seen as negative, due to representation)
-		featureVector[i]=(pixel%256>=128?true:false);
+		blue=pixel%256;
+		if(blue<0) blue=-blue;
+		featureVector[i]=(blue>=128?true:false);
 	}
 	automatism.analyze(featureVector);
 	recog.train(featureVector,key);
