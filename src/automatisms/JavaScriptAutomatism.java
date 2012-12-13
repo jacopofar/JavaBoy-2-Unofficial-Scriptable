@@ -91,11 +91,11 @@ public class JavaScriptAutomatism extends GameBoyListener{
 	}
 	
 	/**
-	 * Since JavaScript types are slighty different from Java ones, this method
-	 * allow us to peep a little bit
+	 * Since JavaScript types are slightly different from Java ones, this method
+	 * allow us to peep a little bit for debugging purposes.
 	 * */
 	public void analyze(Object i){
-		System.out.println(i);
+		System.out.println("received object:"+i);
 	}
 	
 
