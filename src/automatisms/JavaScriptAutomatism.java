@@ -131,6 +131,10 @@ public class JavaScriptAutomatism extends GameBoyListener{
 		taskExecutor.remove(runningTasks.get(taskName));
 	}
 	
+	
+	/**
+	 * Wrapper of a Rhino JS function to be called by the scheduler
+	 * */
 	class JSFunctionRunner implements Runnable{
 
 		private Function function;
