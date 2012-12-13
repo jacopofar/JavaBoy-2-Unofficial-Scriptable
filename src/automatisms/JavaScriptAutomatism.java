@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import machinelearning.NaiveBayes;
 import sun.org.mozilla.javascript.Context;
@@ -39,7 +40,7 @@ public class JavaScriptAutomatism extends GameBoyListener{
 
 		scope = context.initStandardObjects();
 		context.evaluateString(scope, code, "script", 1, null);
-		
+
 		functionOnPress = (Function)scope.get("onPress", scope);
 		functionOnRelease = (Function)scope.get("onRelease", scope);
 		functionOnGameStart = (Function)scope.get("onGameStart", scope);
@@ -61,21 +62,21 @@ public class JavaScriptAutomatism extends GameBoyListener{
 		functionOnGameStart.call(
 				context, scope, scope, new Object[] {gh,this});
 	}
-	
+
 	public boolean onButtonPressed(String key){
 		//note: we check that it's NOT FALSE, so a script not returning a boolean is considered true
 		//in general, a script wants to return true
 		return (!functionOnPress.call(
 				context, scope, scope, new Object[] {gh,this,key}).equals(Boolean.FALSE));
 	}
-	
+
 	public boolean onButtonReleased(String key){
 		//note: we check that it's NOT FALSE, so a script not returning a boolean is considered true
 		//in general, a script wants to return true
 		return (!functionOnRelease.call(
 				context, scope, scope, new Object[] {gh,this,key}).equals(Boolean.FALSE));
 	}
-	
+
 	private static String loadCode(String path) throws IOException{
 		if(path.startsWith("http://")){
 			//TODO manage http load wrt proxies and security
@@ -90,11 +91,11 @@ public class JavaScriptAutomatism extends GameBoyListener{
 	public void notify(String text){
 		System.out.println(">"+text);
 	}
-	
+
 	public NaiveBayes getNBC(int n,String[] classes){
 		return new NaiveBayes(n, classes);
 	}
-	
+
 	/**
 	 * Since JavaScript types are slightly different from Java ones, this method
 	 * allow us to peep a little bit for debugging purposes.
@@ -102,7 +103,7 @@ public class JavaScriptAutomatism extends GameBoyListener{
 	public void analyze(Object i){
 		System.out.println("received object:"+i);
 	}
-	
+
 	/**
 	 * Calls a specific JS function, called "task" with a given time frequency expressed in ms
 	 * The function will receive the GameHandler and this object just like onGameStart
@@ -114,17 +115,37 @@ public class JavaScriptAutomatism extends GameBoyListener{
 	 * */
 	public boolean startTask(String functionName, String msInterval,String taskName){
 		boolean existed=false;
-		if(this.runningTasks.containsKey(taskName)){
-			esisted=true;
-			//TODO stop that task
+		if(runningTasks.containsKey(taskName)){
+			existed=true;
+			taskExecutor.remove(runningTasks.get(taskName));
 		}
-		//TODO start this task
+
+		Function taskFunction = (Function)scope.get(functionName, scope);
+		taskExecutor.scheduleAtFixedRate(new JSFunctionRunner(taskFunction,this),Integer.parseInt(msInterval), Integer.parseInt(msInterval),TimeUnit.MILLISECONDS);
 		return existed;
 	}
 	/**
 	 * Stop the task with the given name
 	 * */
 	public void stopTask(String taskName){
-		//TODO implement it
+		taskExecutor.remove(runningTasks.get(taskName));
+	}
+	
+	class JSFunctionRunner implements Runnable{
+
+		private Function function;
+		private JavaScriptAutomatism aut;
+
+		public JSFunctionRunner(Function f,JavaScriptAutomatism jsa) {
+			this.function=f;
+			this.aut=jsa;
+		}
+
+		@Override
+		public void run() {
+			function.call(
+					context, scope, scope, new Object[] {gh,aut});	
+		}
+		
 	}
 }
