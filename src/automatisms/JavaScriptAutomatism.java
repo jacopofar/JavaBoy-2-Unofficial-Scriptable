@@ -113,7 +113,7 @@ public class JavaScriptAutomatism extends GameBoyListener{
 	 * If there's a task with the given name already running, it will be stopped and replaced by this
 	 * @return true if a task with the same name has been replaced, false if the task is new
 	 * */
-	public boolean startTask(String functionName, String msInterval,String taskName){
+	public boolean startTask(String functionName, int msInterval,String taskName){
 		boolean existed=false;
 		if(runningTasks.containsKey(taskName)){
 			existed=true;
@@ -121,7 +121,7 @@ public class JavaScriptAutomatism extends GameBoyListener{
 		}
 
 		Function taskFunction = (Function)scope.get(functionName, scope);
-		taskExecutor.scheduleAtFixedRate(new JSFunctionRunner(taskFunction,this),Integer.parseInt(msInterval), Integer.parseInt(msInterval),TimeUnit.MILLISECONDS);
+		taskExecutor.scheduleAtFixedRate(new JSFunctionRunner(taskFunction,this),msInterval, msInterval,TimeUnit.MILLISECONDS);
 		return existed;
 	}
 	/**
@@ -140,7 +140,7 @@ public class JavaScriptAutomatism extends GameBoyListener{
 		private Function function;
 		private JavaScriptAutomatism aut;
 
-		public JSFunctionRunner(Function f,JavaScriptAutomatism jsa) {
+		public JSFunctionRunner(Function f,JavaScriptAutomatism jsa){
 			this.function=f;
 			this.aut=jsa;
 		}
