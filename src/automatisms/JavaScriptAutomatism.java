@@ -5,6 +5,9 @@ package automatisms;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import machinelearning.NaiveBayes;
 import sun.org.mozilla.javascript.Context;
@@ -25,6 +28,8 @@ public class JavaScriptAutomatism extends GameBoyListener{
 	private Function functionOnGameStart;
 	private Context context;
 	private ScriptableObject scope;
+	private Map<String,Runnable>runningTasks=new HashMap<String,Runnable>();
+	private ScheduledThreadPoolExecutor taskExecutor=new ScheduledThreadPoolExecutor(Runtime.getRuntime().availableProcessors());
 	public JavaScriptAutomatism(GameHandle gh,String scriptPath) throws IOException{
 		this.gh=gh;
 		this.scriptPath=scriptPath;
@@ -98,5 +103,28 @@ public class JavaScriptAutomatism extends GameBoyListener{
 		System.out.println("received object:"+i);
 	}
 	
-
+	/**
+	 * Calls a specific JS function, called "task" with a given time frequency expressed in ms
+	 * The function will receive the GameHandler and this object just like onGameStart
+	 * If the function is still running when it's time for another call, the call is ignored.
+	 * The name of the task is used by stopTask to terminate the task, the same function can be 
+	 * gave to different tasks.
+	 * If there's a task with the given name already running, it will be stopped and replaced by this
+	 * @return true if a task with the same name has been replaced, false if the task is new
+	 * */
+	public boolean startTask(String functionName, String msInterval,String taskName){
+		boolean existed=false;
+		if(this.runningTasks.containsKey(taskName)){
+			esisted=true;
+			//TODO stop that task
+		}
+		//TODO start this task
+		return existed;
+	}
+	/**
+	 * Stop the task with the given name
+	 * */
+	public void stopTask(String taskName){
+		//TODO implement it
+	}
 }
