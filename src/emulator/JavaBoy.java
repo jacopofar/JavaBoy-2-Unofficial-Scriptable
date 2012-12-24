@@ -344,21 +344,21 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 		System.out.println("pressed physical key "+e.getKeyCode());
 		int key = e.getKeyCode();
 		if (key == keyCodes[0]) {
-			sendButtonPress("up");
+			sendButtonPress("up","physical");
 		} else if (key == keyCodes[1]) {
-			sendButtonPress("down");
+			sendButtonPress("down","physical");
 		} else if (key == keyCodes[2]) {
-			sendButtonPress("left");
+			sendButtonPress("left","physical");
 		} else if (key == keyCodes[3]) {
-			sendButtonPress("right");
+			sendButtonPress("right","physical");
 		} else if (key == keyCodes[4]) {
-			sendButtonPress("A");
+			sendButtonPress("A","physical");
 		} else if (key == keyCodes[5]) {
-			sendButtonPress("B");
+			sendButtonPress("B","physical");
 		} else if (key == keyCodes[6]) {
-			sendButtonPress("start");
+			sendButtonPress("start","physical");
 		} else if (key == keyCodes[7]) {
-			sendButtonPress("select");
+			sendButtonPress("select","physical");
 		}
 
 		switch (key) {
@@ -393,10 +393,10 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 	/**
 	 * simulate the pressure of a button, from GUI or from some script
 	 * */
-	public void sendButtonPress(String button){
+	public void sendButtonPress(String button, String source){
 		System.out.println("send button "+button);
 		for(GameHandle g:handles){
-			if(!g.onPressure(button)) return;
+			if(!g.onPressure(button,source)) return;
 		}
 		if(button.equals("up")){
 			dmgcpu.ioHandler.padUp = true;
@@ -434,10 +434,11 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 
 	/**
 	 * simulate the release of a button, from GUI or from some script
+	 * @param source 
 	 * */
-	public void sendButtonRelease(String button){
+	public void sendButtonRelease(String button, String source){
 		for(GameHandle g:handles){
-			if(!g.onRelease(button)) return;
+			if(!g.onRelease(button,source)) return;
 		}
 		if(button.equals("up")){
 			dmgcpu.ioHandler.padUp = false;
@@ -477,21 +478,21 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		if (key == keyCodes[0]) {
-			sendButtonRelease("up");
+			sendButtonRelease("up","physical");
 		} else if (key == keyCodes[1]) {
-			sendButtonRelease("down");
+			sendButtonRelease("down","physical");
 		} else if (key == keyCodes[2]) {
-			sendButtonRelease("left");
+			sendButtonRelease("left","physical");
 		} else if (key == keyCodes[3]) {
-			sendButtonRelease("right");
+			sendButtonRelease("right","physical");
 		} else if (key == keyCodes[4]) {
-			sendButtonRelease("A");
+			sendButtonRelease("A","physical");
 		} else if (key == keyCodes[5]) {
-			sendButtonRelease("B");
+			sendButtonRelease("B","physical");
 		} else if (key == keyCodes[6]) {
-			sendButtonRelease("start");
+			sendButtonRelease("start","physical");
 		} else if (key == keyCodes[7]) {
-			sendButtonRelease("select");
+			sendButtonRelease("select","physical");
 		}
 	}
 

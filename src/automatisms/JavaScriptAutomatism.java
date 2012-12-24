@@ -62,19 +62,19 @@ public class JavaScriptAutomatism extends GameBoyListener{
 		functionOnGameStart.call(
 				context, scope, scope, new Object[] {gh,this});
 	}
-
-	public boolean onButtonPressed(String key){
+	@Override
+	public boolean onButtonPressed(String key,String source){
 		//note: we check that it's NOT FALSE, so a script not returning a boolean is considered true
 		//in general, a script wants to return true
 		return (!functionOnPress.call(
-				context, scope, scope, new Object[] {gh,this,key}).equals(Boolean.FALSE));
+				context, scope, scope, new Object[] {gh,this,key,source}).equals(Boolean.FALSE));
 	}
-
-	public boolean onButtonReleased(String key){
+	@Override
+	public boolean onButtonReleased(String key,String source){
 		//note: we check that it's NOT FALSE, so a script not returning a boolean is considered true
 		//in general, a script wants to return true
 		return (!functionOnRelease.call(
-				context, scope, scope, new Object[] {gh,this,key}).equals(Boolean.FALSE));
+				context, scope, scope, new Object[] {gh,this,key,source}).equals(Boolean.FALSE));
 	}
 
 	private static String loadCode(String path) throws IOException{

@@ -42,9 +42,9 @@ public class GameImitator extends GameBoyListener{
 					String mostlikely=KNN.findMostSimilar(folder,s);
 					String found=mostlikely.split("_")[1].split("\\.")[0];
 					System.out.println("most similar screenshot: "+mostlikely+" which is key "+found);
-					gh.pressKey(found);
+					gh.pressKey(found,"game imitator");
 					Thread.sleep(100);
-					gh.releaseKey(found);
+					gh.releaseKey(found,"game imitator");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

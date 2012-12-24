@@ -24,15 +24,15 @@ public class GameHandle{
 	 * Simulate the pression of a key
 	 * NOTE: it will call the listeners just like a human-caused pression
 	 * */
-	public void pressKey(String key){
-		g.sendButtonPress(key);
+	public void pressKey(String key,String source){
+		g.sendButtonPress(key,source);
 	}
 	/**
 	 * Simulate the release of a key
 	 * NOTE: it will call the listeners just like a human-caused pression
 	 * */
-	public void releaseKey(String key){
-		g.sendButtonRelease(key);
+	public void releaseKey(String key,String source){
+		g.sendButtonRelease(key,source);
 	}
 
 	public void addButtonListener(GameBoyListener l){
@@ -52,15 +52,15 @@ public class GameHandle{
 	}
 	
 	//TODO define the behavior when a listener returns false, wrt the order of listeners
-	public boolean onPressure(String button) {
+	public boolean onPressure(String button, String source) {
 		for(GameBoyListener l:listeners){
-			if(!l.onButtonPressed(button))return false;
+			if(!l.onButtonPressed(button,source))return false;
 		}
 		return true;
 	}
-	public boolean onRelease(String button) {
+	public boolean onRelease(String button, String source) {
 		for(GameBoyListener l:listeners){
-			if(!l.onButtonReleased(button))return false;
+			if(!l.onButtonReleased(button,source))return false;
 		}
 		return true;
 	}
